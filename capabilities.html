@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ambivert Technologies — Electronics Manufacturing &amp; Product Development</title>
+<meta name="description" content="From prototype to production — SMT assembly, embedded product development, and mechanical prototyping for startups, OEMs, and industrial companies. Made in Pune, India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #090c12;
+    --bg-panel: #0e131c;
+    --bg-card: #131a26;
+    --line: #212b3a;
+    --line-bright: #2d3a4d;
+    --text: #e9edf3;
+    --text-dim: #8993a6;
+    --text-faint: #576078;
+    --accent: #ff6a2b;
+    --accent-soft: rgba(255,106,43,0.12);
+    --accent-line: rgba(255,106,43,0.35);
+    --signal: #3ed598;
+    --radius: 3px;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-attachment: fixed;
+    background-position: -1px -1px;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background: radial-gradient(1100px 600px at 15% -5%, rgba(255,106,43,0.09), transparent 60%),
+                radial-gradient(900px 500px at 90% 10%, rgba(62,213,152,0.05), transparent 55%);
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  section{position:relative; z-index:1;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background:var(--accent);
+    border-radius:1px;
+    box-shadow:0 0 8px var(--accent);
+  }
+  .eyebrow.dim{color:var(--text-faint);}
+  .eyebrow.dim::before{background:var(--text-faint); box-shadow:none;}
+
+  h1,h2,h3{font-family:var(--display); font-weight:600; letter-spacing:-0.01em;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(9,12,18,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+    max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--display); font-weight:700; font-size:17px; letter-spacing:-0.01em;
+  }
+  .logo .mark{
+    width:26px; height:26px;
+    border:1.5px solid var(--accent);
+    border-radius:4px;
+    position:relative;
+    display:grid; place-items:center;
+  }
+  .logo .mark::after{
+    content:"";
+    width:8px; height:8px;
+    background:var(--accent);
+    border-radius:1px;
+  }
+  .logo small{
+    display:block;
+    font-family:var(--mono); font-weight:400; font-size:9.5px;
+    letter-spacing:0.14em; color:var(--text-faint); margin-top:2px;
+  }
+  .navlinks{
+    display:flex; gap:32px;
+    font-size:14px; color:var(--text-dim);
+  }
+  .navlinks a:hover{color:var(--text);}
+  .nav-cta{
+    display:flex; gap:12px; align-items:center;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  .btn{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.03em;
+    padding:10px 18px;
+    border-radius:var(--radius);
+    display:inline-flex; align-items:center; gap:8px;
+    white-space:nowrap;
+    transition:all .15s ease;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#0a0c10;
+    font-weight:600;
+  }
+  .btn-primary:hover{background:#ff7d47;}
+  .btn-ghost{
+    border-color:var(--line-bright);
+    color:var(--text);
+  }
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:100px 0 70px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:60px;
+    align-items:center;
+  }
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr; gap:40px;} }
+
+  .hero h1{
+    font-size:clamp(34px,5vw,58px);
+    line-height:1.08;
+    margin-bottom:22px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--accent);
+  }
+  .hero p.lead{
+    font-size:17px;
+    color:var(--text-dim);
+    max-width:52ch;
+    margin-bottom:34px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;}
+
+  .hero-stats{
+    display:flex; gap:0;
+    border-top:1px solid var(--line);
+  }
+  .hero-stats .stat{
+    flex:1;
+    padding:16px 18px 0 0;
+    border-right:1px solid var(--line);
+  }
+  .hero-stats .stat:last-child{border-right:none;}
+  .hero-stats .stat .n{
+    font-family:var(--mono); font-size:20px; color:var(--accent); font-weight:600;
+  }
+  .hero-stats .stat .l{
+    font-family:var(--mono); font-size:10.5px; color:var(--text-faint);
+    text-transform:uppercase; letter-spacing:0.08em; margin-top:4px;
+  }
+
+  /* schematic panel */
+  .schematic{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:22px;
+    position:relative;
+  }
+  .schematic-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--mono); font-size:10.5px; color:var(--text-faint);
+    text-transform:uppercase; letter-spacing:0.1em;
+    padding-bottom:14px; margin-bottom:16px;
+    border-bottom:1px solid var(--line);
+  }
+  .schematic-head .live{color:var(--signal); display:flex; align-items:center; gap:6px;}
+  .schematic-head .live::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--signal); box-shadow:0 0 6px var(--signal);}
+  .schem-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:9px 0;
+    border-bottom:1px dashed var(--line);
+    font-size:13px;
+  }
+  .schem-row:last-child{border-bottom:none;}
+  .schem-row .k{color:var(--text-dim);}
+  .schem-row .v{font-family:var(--mono); color:var(--text); font-size:12.5px;}
+
+  /* ---------- Section shell ---------- */
+  .section{padding:90px 0;}
+  .section.alt{background:var(--bg-panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:48px; flex-wrap:wrap;
+  }
+  .section-head h2{font-size:clamp(26px,3.4vw,36px);}
+  .section-head p{color:var(--text-dim); max-width:44ch; font-size:14.5px;}
+
+  /* PCB trace divider — signature motif */
+  .trace{
+    height:26px; margin:0 auto 10px;
+    max-width:1180px;
+    padding:0 28px;
+  }
+  .trace svg{width:100%; height:100%; display:block;}
+
+  /* ---------- Capability cards ---------- */
+  .cap-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  @media (max-width:900px){ .cap-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:620px){ .cap-grid{grid-template-columns:1fr;} }
+
+  .cap-card{
+    background:var(--bg-card);
+    padding:28px 26px 26px;
+    position:relative;
+  }
+  .cap-card .idx{
+    font-family:var(--mono); font-size:11px; color:var(--text-faint);
+    letter-spacing:0.08em; margin-bottom:18px; display:block;
+  }
+  .cap-card .icon{
+    width:34px; height:34px; margin-bottom:16px;
+    color:var(--accent);
+  }
+  .cap-card h3{font-size:17px; margin-bottom:9px;}
+  .cap-card p{color:var(--text-dim); font-size:13.8px; margin-bottom:14px;}
+  .cap-card .specs{
+    list-style:none;
+    border-top:1px solid var(--line);
+    padding-top:12px;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .cap-card .specs li{
+    font-family:var(--mono); font-size:11.8px; color:var(--text-faint);
+    padding-left:14px; position:relative;
+  }
+  .cap-card .specs li::before{
+    content:"›"; position:absolute; left:0; color:var(--accent);
+  }
+
+  /* ---------- Process strip ---------- */
+  .process{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:0;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  @media (max-width:900px){ .process{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .process{grid-template-columns:1fr;} }
+  .proc-step{
+    padding:24px 20px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:var(--bg-card);
+  }
+  .process .proc-step:last-child{border-right:none;}
+  .proc-step .n{font-family:var(--mono); font-size:11px; color:var(--accent); margin-bottom:10px;}
+  .proc-step h4{font-family:var(--display); font-size:14.5px; font-weight:600; margin-bottom:6px;}
+  .proc-step p{font-size:12.6px; color:var(--text-faint); line-height:1.5;}
+
+  /* ---------- Why / stat band ---------- */
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:24px;
+  }
+  @media (max-width:900px){ .why-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .why-grid{grid-template-columns:1fr;} }
+  .why-item{padding-top:16px; border-top:1px solid var(--accent-line);}
+  .why-item h4{font-size:14.5px; margin-bottom:8px;}
+  .why-item p{font-size:12.8px; color:var(--text-faint);}
+
+  /* ---------- Industries ---------- */
+  .chips{display:flex; flex-wrap:wrap; gap:10px;}
+  .chip{
+    font-family:var(--mono); font-size:12.5px;
+    border:1px solid var(--line-bright);
+    padding:9px 16px;
+    border-radius:20px;
+    color:var(--text-dim);
+  }
+  .chip:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* ---------- CTA / Contact ---------- */
+  .cta-panel{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:56px;
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:40px;
+  }
+  @media (max-width:800px){ .cta-panel{grid-template-columns:1fr; padding:36px 26px;} }
+  .cta-panel h2{font-size:clamp(24px,3.2vw,32px); margin-bottom:14px;}
+  .cta-panel p{color:var(--text-dim); font-size:14.5px; max-width:44ch; margin-bottom:28px;}
+  .cta-actions{display:flex; gap:14px; flex-wrap:wrap;}
+
+  .contact-list{display:flex; flex-direction:column; gap:18px; border-left:1px solid var(--line); padding-left:32px;}
+  @media (max-width:800px){ .contact-list{border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:24px;} }
+  .contact-list .row{display:flex; flex-direction:column; gap:3px;}
+  .contact-list .label{font-family:var(--mono); font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.08em;}
+  .contact-list .value{font-size:14.5px;}
+  .contact-list a.value:hover{color:var(--accent);}
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:28px 0;
+  }
+  .foot-row{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:14px;
+    font-family:var(--mono); font-size:11.5px; color:var(--text-faint);
+  }
+  .foot-row a:hover{color:var(--accent);}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  @media (prefers-reduced-motion:no-preference){
+    .cap-card, .why-item, .proc-step{transition:transform .2s ease, border-color .2s ease;}
+    .cap-card:hover{transform:translateY(-2px);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <span class="mark"></span>
+      <span>AMBIVERT
+        <small>TECHNOLOGIES PVT. LTD.</small>
+      </span>
+    </div>
+    <nav class="navlinks">
+      <a href="#capabilities">Capabilities</a>
+      <a href="#process">Process</a>
+      <a href="#industries">Industries</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="tel:+919960160016">+91 99601 60016</a>
+      <a class="btn btn-primary" href="https://wa.me/919960160016" target="_blank" rel="noopener">Request Quote</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Engineering Excellence — Made in Pune, India</div>
+        <h1>From prototype to <em>production-ready</em> hardware.</h1>
+        <p class="lead">We help startups, OEMs, and industrial companies build reliable electronic products in India — SMT assembly, embedded product development, and mechanical prototyping under one roof.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://wa.me/919960160016" target="_blank" rel="noopener">Request a Quote →</a>
+          <a class="btn btn-ghost" href="#capabilities">View Capabilities</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><div class="n">14,000</div><div class="l">CPH Placement Speed</div></div>
+          <div class="stat"><div class="n">0201–40mm</div><div class="l">Component Range</div></div>
+          <div class="stat"><div class="n">460×300</div><div class="l">Max PCB Size (mm)</div></div>
+          <div class="stat"><div class="n">New Machines</div><div class="l">Operating History</div></div>
+        </div>
+      </div>
+
+      <div class="schematic">
+        <div class="schematic-head">
+          <span>SYS_REF: LINE_01 // SMT_CELL</span>
+          <span class="live">ONLINE</span>
+        </div>
+        <div class="schem-row"><span class="k">Pick &amp; Place</span><span class="v">NeoDen N9, 6 Heads</span></div>
+        <div class="schem-row"><span class="k">Placement Speed</span><span class="v">14,000 CPH</span></div>
+        <div class="schem-row"><span class="k">Vision System</span><span class="v">Flying Vision</span></div>
+        <div class="schem-row"><span class="k">Reflow Oven</span><span class="v">NeoDen IN6C, Multi-Zone</span></div>
+        <div class="schem-row"><span class="k">Solder Profiles</span><span class="v">Leaded / Lead-Free</span></div>
+        <div class="schem-row"><span class="k">Board Length (Max)</span><span class="v">Up to 800 mm</span></div>
+        <div class="schem-row"><span class="k">Feed System</span><span class="v">Electric + Pneumatic</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section class="section" id="capabilities">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Our Capabilities</div>
+          <h2>Everything between a schematic and a shipped product.</h2>
+        </div>
+        <p>Seven in-house disciplines, run out of one facility in Pune — so your board doesn't change hands between vendors.</p>
+      </div>
+
+      <div class="cap-grid">
+
+        <div class="cap-card">
+          <span class="idx">CAP / 01</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7 3v4M12 3v4M17 3v4M7 17v4M12 17v4M17 17v4M3 7h4M3 12h4M3 17h4M17 7h4M17 12h4M17 17h4"/></svg>
+          <h3>PCB Assembly (SMT)</h3>
+          <p>High-quality PCB assembly for prototypes and production batches.</p>
+          <ul class="specs">
+            <li>NeoDen N9 automatic pick &amp; place, 6 heads</li>
+            <li>Up to 14,000 CPH, 0201 to 40×40mm parts</li>
+            <li>Closed-loop servo control accuracy</li>
+          </ul>
+        </div>
+
+        <div class="cap-card">
+          <span class="idx">CAP / 02</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12c0-4 3-7 8-7s8 3 8 7-3 7-8 7-8-3-8-7Z"/><path d="M4 12h16M9 5c-1 2-1.5 4.5-1.5 7s.5 5 1.5 7M15 5c1 2 1.5 4.5 1.5 7s-.5 5-1.5 7"/></svg>
+          <h3>Reflow Soldering</h3>
+          <p>Consistent solder quality for multilayer and fine-pitch PCBs.</p>
+          <ul class="specs">
+            <li>NeoDen IN6C reflow oven</li>
+            <li>Leaded and lead-free profiles</li>
+            <li>Controlled multi-zone temperature</li>
+          </ul>
+        </div>
+
+        <div class="cap-card">
+          <span class="idx">CAP / 03</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>
+          <h3>PCB Prototyping &amp; Assembly</h3>
+          <p>Prototype to low- and medium-volume production runs.</p>
+          <ul class="specs">
+            <li>Component sourcing &amp; BOM verification</li>
+            <li>Manual + automated assembly, THT soldering</li>
+            <li>Inspection and functional testing</li>
+          </ul>
+        </div>
+
+        <div class="cap-card">
+          <span class="idx">CAP / 04</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="19" cy="12" r="1.6"/><circle cx="16" cy="17" r="1.6"/></svg>
+          <h3>Product Development</h3>
+          <p>Embedded hardware design, PCB design, and firmware development.</p>
+          <ul class="specs">
+            <li>ESP32, STM32 &amp; industrial controllers</li>
+            <li>Rapid prototyping</li>
+            <li>Functional testing</li>
+          </ul>
+        </div>
+
+        <div class="cap-card">
+          <span class="idx">CAP / 05</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3 4 8v8l8 5 8-5V8l-8-5Z"/><path d="M4 8l8 5 8-5M12 13v8"/></svg>
+          <h3>Mechanical Prototyping</h3>
+          <p>Rapid enclosure and fixture development.</p>
+          <ul class="specs">
+            <li>High-resolution 3D printers</li>
+            <li>Functional prototype fabrication</li>
+            <li>Enclosures, brackets &amp; jigs</li>
+          </ul>
+        </div>
+
+        <div class="cap-card">
+          <span class="idx">CAP / 06</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 12h6l2-4 3 8 2-4h5"/></svg>
+          <h3>Laser Marking &amp; Engraving</h3>
+          <p>Precision engraving for products and branding.</p>
+          <ul class="specs">
+            <li>xTool F1 laser</li>
+            <li>QR codes, serial numbers, asset labels</li>
+            <li>Acrylic, metal &amp; plastic engraving</li>
+          </ul>
+        </div>
+
+        <div class="cap-card" style="grid-column: span 1;">
+          <span class="idx">CAP / 07</span>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 7l9-4 9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7M12 11v10"/></svg>
+          <h3>Packaging &amp; Dispatch</h3>
+          <p>Ready-to-ship product finishing and small-batch fulfillment.</p>
+          <ul class="specs">
+            <li>Product packing &amp; labeling</li>
+            <li>Barcode application</li>
+            <li>Documentation &amp; dispatch</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section alt" id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Deployment Pipeline</div>
+          <h2>One facility, start to finish.</h2>
+        </div>
+        <p>Your product moves through a single line — no handoffs between vendors, no lost context.</p>
+      </div>
+      <div class="process">
+        <div class="proc-step">
+          <div class="n">01</div>
+          <h4>Design Support</h4>
+          <p>Embedded hardware, PCB layout &amp; firmware development.</p>
+        </div>
+        <div class="proc-step">
+          <div class="n">02</div>
+          <h4>Sourcing &amp; BOM</h4>
+          <p>Component sourcing and BOM verification before build.</p>
+        </div>
+        <div class="proc-step">
+          <div class="n">03</div>
+          <h4>SMT &amp; Reflow</h4>
+          <p>Automated placement and multi-zone reflow soldering.</p>
+        </div>
+        <div class="proc-step">
+          <div class="n">04</div>
+          <h4>Inspection &amp; Test</h4>
+          <p>Manual/automated assembly checks and functional testing.</p>
+        </div>
+        <div class="proc-step">
+          <div class="n">05</div>
+          <h4>Finish &amp; Dispatch</h4>
+          <p>Enclosure, marking, packaging and small-batch fulfillment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Why Work With Us</div>
+          <h2>Built for teams who can't afford a stalled line.</h2>
+        </div>
+      </div>
+      <div class="why-grid">
+        <div class="why-item"><h4>Fast Turnaround</h4><p>Prototypes moved through quickly, without queueing behind unrelated jobs.</p></div>
+        <div class="why-item"><h4>Design to Manufacturing</h4><p>Support that spans the whole journey, not just the build step.</p></div>
+        <div class="why-item"><h4>Flexible Quantities</h4><p>From a single prototype to production-ready batches.</p></div>
+        <div class="why-item"><h4>Made in India</h4><p>Manufactured and assembled entirely in Pune, India.</p></div>
+        <div class="why-item"><h4>Engineering Support</h4><p>Direct access to the engineers building your product, throughout its lifecycle.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="section alt" id="industries">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Industries We Serve</div>
+          <h2>Across sectors that need hardware done right.</h2>
+        </div>
+      </div>
+      <div class="chips">
+        <span class="chip">Industrial Automation</span>
+        <span class="chip">IoT Products</span>
+        <span class="chip">Consumer Electronics</span>
+        <span class="chip">Robotics</span>
+        <span class="chip">Medical Electronics</span>
+        <span class="chip">Smart Devices</span>
+        <span class="chip">Research &amp; Education</span>
+        <span class="chip">Startups &amp; OEMs</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / CTA -->
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="cta-panel">
+        <div>
+          <div class="eyebrow dim">Let's Build Your Next Product</div>
+          <h2>Whether it's one prototype or a production run — we can support the whole journey.</h2>
+          <p>PCB Assembly (SMT &amp; THT) · Product Development · Embedded Electronics · 3D Printing · Laser Engraving · Product Packaging · Testing &amp; Inspection</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="https://wa.me/919960160016" target="_blank" rel="noopener">Chat on WhatsApp →</a>
+            <a class="btn btn-ghost" href="mailto:hello@autoemx.com">Email Us</a>
+          </div>
+        </div>
+        <div class="contact-list">
+          <div class="row">
+            <span class="label">Voice</span>
+            <a class="value" href="tel:+919960160016">+91 99601 60016</a>
+          </div>
+          <div class="row">
+            <span class="label">Email</span>
+            <a class="value" href="mailto:hello@autoemx.com">hello@autoemx.com</a>
+          </div>
+          <div class="row">
+            <span class="label">Facility</span>
+            <span class="value">Ambivert Technologies Pvt. Ltd.<br>Pune, Maharashtra, India</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>© 2026 Ambivert Technologies Private Limited. More efficient together.</span>
+    <span>
+      <a href="#capabilities">Capabilities</a> &nbsp;·&nbsp;
+      <a href="#process">Process</a> &nbsp;·&nbsp;
+      <a href="#contact">Contact</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
